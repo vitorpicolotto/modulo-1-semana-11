@@ -28,6 +28,6 @@ Criação dos posts sobre Javascript
 Criação dos posts sobre React intermediário
 
 - Hooks
-- Estados com useState e useEffect
+- Gerenciamento de estado com useState e useEffect
 - Efeito colateral
 - Componentes controlados e não controlados
