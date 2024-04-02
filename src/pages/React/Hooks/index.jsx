@@ -1,7 +1,13 @@
+import { useEffect, useState } from "react";
 import PostHeader from "../../../components/PostHeader";
 import SimpleCard from "../../../components/SimpleCard";
 
 function Hooks() {
+//Hooks de estado sempre aqui em cima
+    const [randomPassword, setRandomPassword] = useState();
+    const [countPlus, setCountPlus] = useState(0);
+    const [secondsInThePage, setSecondsInThePage] = useState(0);
+    
  function generatePassword(length) {
   const charset =
    "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -11,8 +17,21 @@ function Hooks() {
    pass += charset.charAt(Math.floor(Math.random() * charset.length));
   }
 
-  console.log(pass);
+  setRandomPassword(pass);
  }
+
+function contador(){
+    setCountPlus((countPlus) => countPlus + 1)
+}
+
+
+//Hooks de Dependência antes do return
+useEffect(() => {
+    // Executa assim que o componente é montado na tela
+    setTimeout(() =>{
+        setSecondsInThePage(secondsInThePage+1);
+    }, 1000)
+}, [secondsInThePage])
 
  return (
   <div>
@@ -30,7 +49,9 @@ function Hooks() {
       <h2 className="second-title">Hooks de estado</h2>
 
       <h2 className="caption">O que é estado</h2>
-      <span className="mb-2">...</span>
+      <span className="mb-2">
+        É uma maneira de guardar informações no componente, que eu quero que sejam atualizadas na tela assim que forem alteradas no código.
+      </span>
 
       <h2 className="caption">Pra que servem os Hooks de estado</h2>
       <span className="mb-2">...</span>
@@ -126,14 +147,29 @@ function Hooks() {
        Gerar senha
       </button>
 
-      <p className="caption">Senha gerada: </p>
+      <p className="caption">Senha gerada: {randomPassword} </p>
+     </SimpleCard>
+
+     <SimpleCard>
+      <h2 className="second-title">Criando um botão de contador</h2>
+      <p className="mb-2">
+       O botão abaixo vai gerar um contador sempre que você clicar nele.
+       Perceba que o componente influenciado pelo valor do estado é atualizado
+       sempre que o valor muda.
+      </p>
+
+      <button className="mb-1" onClick={() => contador()}> 
+       Ativar contador
+      </button>
+
+      <p className="caption">Contagem de cliques: {countPlus} </p>
      </SimpleCard>
 
      <SimpleCard>
       <h2 className="second-title">useEffect</h2>
       <p className="mb-1">
        Graças ao useEffect, assim que você entrou na página o contador abaixo
-       foi iniciado e indica que você permaneceu nessa página por <b>...</b>{" "}
+       foi iniciado e indica que você permaneceu nessa página por <b>{secondsInThePage}</b>{" "}
        segundos
       </p>
      </SimpleCard>
