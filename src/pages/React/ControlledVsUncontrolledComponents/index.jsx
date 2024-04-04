@@ -1,12 +1,47 @@
+import { useRef, useState } from "react";
 import PostHeader from "../../../components/PostHeader";
 import SimpleCard from "../../../components/SimpleCard";
 
 function UncontrolledComponent() {
- return <h1>Componente não controlado</h1>;
+    const inputRef = useRef();
+
+    function submitUncontrolledClass (e){
+        e.preventDefault();
+        window.alert(`Você enviou o formulário da turma: ${inputRef.current.value}`); 
+    }
+
+
+ return (
+    <form onSubmit={(e) => submitUncontrolledClass(e)}>
+        <input type="text" 
+        ref={inputRef} 
+        name="uncontrolled-class"/>
+        <button type="submit">Enviar</button>
+    </form>
+ );
 }
 
 function ControlledComponent() {
- return <h1>Componente controlado</h1>;
+    const [controlledClass, setControlledClass] = useState("");
+    function submitControlledClass(e){
+        e.preventDefault();
+
+        window.alert(`Você enviou o formulário da turma: ${controlledClass}`); 
+    }
+
+
+    return (
+    <form onSubmit={(e) => submitControlledClass(e)}>
+        <input 
+        type="text" 
+        value={controlledClass} 
+        onChange={(e) => setControlledClass(e.target.value)} 
+        name="controlled-class" 
+        />
+        <button type="submit">Enviar</button>
+    </form>
+ 
+ );
 }
 
 function ControlledVsUncontrolledComponents() {

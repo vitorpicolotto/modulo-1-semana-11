@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import PostHeader from "../../../components/PostHeader";
 import SimpleCard from "../../../components/SimpleCard";
+import useFetch from "../../../hooks/useFetch";
+
 
 function Hooks() {
 //Hooks de estado sempre aqui em cima
     const [randomPassword, setRandomPassword] = useState();
     const [countPlus, setCountPlus] = useState(0);
     const [secondsInThePage, setSecondsInThePage] = useState(0);
+    const [users, isLoading] = useFetch("https://jsonplaceholder.typicode.com/users");
+     
     
  function generatePassword(length) {
   const charset =
@@ -182,13 +186,13 @@ useEffect(() => {
        busca de dados.
       </p>
 
-      {/* {isLoading && <p>Carregando usuários...</p>}
+      {isLoading && <p>Carregando usuários...</p>}
 
       {!isLoading && (
        <ul>
         {users && users.map((user) => <li key={user.id}>{user.name}</li>)}
        </ul>
-      )} */}
+      )} 
      </SimpleCard>
     </div>
    </div>
